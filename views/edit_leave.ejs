@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Leave Application</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script>
+        function toggleReasonField() {
+            const leaveType = document.getElementById('leaveType').value;
+            const reasonField = document.getElementById('reasonField');
+            if (leaveType === 'Other') {
+                reasonField.style.display = 'block';
+            } else {
+                reasonField.style.display = 'none';
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            toggleReasonField();
+        });
+    </script>
+</head>
+<body>
+    <h1>Edit Leave Application</h1>
+    <form action="/edit_leave" method="POST">
+        <input type="hidden" name="requestID" value="<%= leaveRequest.requestID %>">
+        <label for="leaveType">Leave Type:</label>
+        <select id="leaveType" name="leaveType" onchange="toggleReasonField()" required>
+            <option value="Sick Leave" <% if (leaveRequest.leaveType === 'Sick Leave') { %>selected<% } %>>Sick Leave</option>
+            <option value="Vacation" <% if (leaveRequest.leaveType === 'Vacation') { %>selected<% } %>>Vacation</option>
+            <option value="Annual Leave" <% if (leaveRequest.leaveType === 'Annual Leave') { %>selected<% } %>>Annual Leave</option>
+            <option value="Other" <% if (leaveRequest.leaveType === 'Other') { %>selected<% } %>>Other</option>
+        </select>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" value="<%= leaveRequest.startDate %>" required>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" value="<%= leaveRequest.endDate %>" required>
+        <div id="reasonField" style="display: none;">
+            <label for="reason">Reason:</label>
+            <textarea id="reason" name="reason"><%= leaveRequest.reason %></textarea>
+        </div>
+        <button type="submit">Update</button>
+    </form>
+    <nav>
+        <a href="/view_status" class="button">Back</a>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Leave</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script>
+        function toggleReasonField() {
+            const leaveType = document.getElementById('leaveType').value;
+            const reasonField = document.getElementById('reasonField');
+            if (leaveType === 'Other') {
+                reasonField.style.display = 'block';
+            } else {
+                reasonField.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Apply for Leave</h1>
+    <form action="/apply_leave" method="POST">
+        <label for="leaveType">Leave Type:</label>
+        <select id="leaveType" name="leaveType" onchange="toggleReasonField()" required>
+            <option value="Sick Leave">Sick Leave</option>
+            <option value="Vacation">Vacation</option>
+            <option value="Annual Leave">Annual Leave</option>
+            <option value="Other">Other</option>
+        </select>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required>
+        <div id="reasonField" style="display: none;">
+            <label for="reason">Reason:</label>
+            <textarea id="reason" name="reason"></textarea>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <nav>
+        <a href="/home" class="button">Back</a>
+    </nav>
+</body>
+</html>

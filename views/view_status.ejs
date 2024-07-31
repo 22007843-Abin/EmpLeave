@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Status</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Leave Status</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Leave Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% leaveRequests.forEach(request => { %>
+            <tr>
+                <td><%= request.leaveType %></td>
+                <td><%= request.startDate %></td>
+                <td><%= request.endDate %></td>
+                <td><%= request.reason %></td>
+                <td><%= request.status %></td>
+                <td>
+                    <% if (request.status === 'pending') { %>
+                    <form action="/edit_leave" method="GET" style="display:inline;">
+                        <input type="hidden" name="requestID" value="<%= request.requestID %>">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <% } else { %>
+                    <span>N/A</span>
+                    <% } %>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <nav>
+        <a href="/home" class="button">Back</a>
+        <a href="/logout" class="button">Logout</a>
+    </nav>
+</body>
+</html>
